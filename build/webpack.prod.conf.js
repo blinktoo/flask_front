@@ -28,6 +28,12 @@ const webpackConfig = merge(baseWebpackConfig, {
     chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jquery: 'jquery',
+      'window.jQuery': 'jquery',
+      jQuery: 'jquery'
+    }),
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
       'process.env': env
@@ -46,7 +52,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       filename: utils.assetsPath('css/[name].[contenthash].css'),
       // Setting the following option to `false` will not extract CSS from codesplit chunks.
       // Their CSS will instead be inserted dynamically with style-loader when the codesplit chunk has been loaded by webpack.
-      // It's currently set to `true` because we are seeing that sourcemaps are included in the codesplit bundle as well when it's `false`, 
+      // It's currently set to `true` because we are seeing that sourcemaps are included in the codesplit bundle as well when it's `false`,
       // increasing file size: https://github.com/vuejs-templates/webpack/issues/1110
       allChunks: true,
     }),
@@ -91,6 +97,7 @@ const webpackConfig = merge(baseWebpackConfig, {
           ) === 0
         )
       }
+
     }),
     // extract webpack runtime and module manifest to its own file in order to
     // prevent vendor hash from being updated whenever app bundle is updated
@@ -107,7 +114,6 @@ const webpackConfig = merge(baseWebpackConfig, {
       children: true,
       minChunks: 3
     }),
-
     // copy custom static assets
     new CopyWebpackPlugin([
       {
@@ -116,6 +122,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         ignore: ['.*']
       }
     ])
+
   ]
 })
 

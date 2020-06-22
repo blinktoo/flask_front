@@ -1,10 +1,5 @@
 <template>
   <div class="container">
-    <alert
-      v-if="sharedState.is_new"
-      v-bind:variant="alertVariant"
-      v-bind:message="alertMessage">
-    </alert>
     <h1>登录</h1>
     <div class="row">
       <div class="col-md-4">
@@ -27,25 +22,19 @@
     <p>新用户? <router-link to="/register">点击注册!</router-link></p>
     <p>
       忘记密码?
-      <a href="#">点击注册</a>
+      <a href="#">点击重置</a>
     </p>
   </div>
 </template>
 
 <script>
-    import axios from 'axios'
-    import Alert from './Alert'
     import store from '../store.js'
+
     export default {
         name: 'Login',  //this is the name of the component
-        components: {
-            alert: Alert
-        },
         data () {
             return {
                 sharedState: store.state,
-                alertVariant: 'info',
-                alertMessage: '恭喜, 用户注册完成 !',
                 loginForm: {
                     username: '',
                     password: '',
@@ -61,6 +50,7 @@
             onSubmit (e) {
                 this.loginForm.submitted = true  // 先更新状态
                 this.loginForm.errors = 0
+
                 if (!this.loginForm.username) {
                     // 如果错误，验证自增一
                     this.loginForm.errors++
@@ -69,28 +59,35 @@
                 } else {
                     this.loginForm.usernameError = null
                 }
+
                 if (!this.loginForm.password) {
                     this.loginForm.errors++
                     this.loginForm.passwordError = 'Password required.'
                 } else {
                     this.loginForm.passwordError = null
                 }
+
                 if (this.loginForm.errors > 0) {
                     // 表单验证没通过时，不继续往下执行，即不会通过 axios 调用后端API
                     return false
                 }
-                const path = 'http://localhost:5000/api/tokens'
+
+                const path = '/tokens'
                 // axios 实现Basic Auth需要在config中设置 auth 这个属性即可
-                axios.post(path, {}, {
+                this.$axios.post(path, {}, {
                     auth: {
                         'username': this.loginForm.username,
                         'password': this.loginForm.password
                     }
                 }).then((response) => {
-                    // handle success
+                    // 在localStorage中存储token
                     window.localStorage.setItem('madblog-token', response.data.token)
-                    store.resetNotNewAction()
                     store.loginAction()
+
+                    // 编码存储下name
+                    const name = JSON.parse(atob(response.data.token.split('.')[1])).name
+                    this.$toasted.success(`Welcome ${name}!`, { icon: 'fingerprint' })
+
                     if (typeof this.$route.query.redirect == 'undefined') {
                         this.$router.push('/')
                     } else {
@@ -100,8 +97,8 @@
                     .catch((error) => {
                         // handle error
                         if (error.response.status == 401) {
-                            this.loginForm.usernameError = '密码或用户名不能识别'
-                            this.loginForm.passwordError = '密码或用户名不能识别'
+                            this.loginForm.usernameError = '用户名不能识别'
+                            this.loginForm.passwordError = '密码不能识别'
                         } else {
                             console.log(error.response)
                         }
