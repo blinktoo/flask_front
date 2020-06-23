@@ -36,7 +36,7 @@
                 <router-link v-bind:to="{ path: `/user/${sharedState.user_id}` }" class="dropdown-item">个人资料</router-link>
                 <router-link v-bind:to="{ name: 'SettingProfile' }" class="dropdown-item">设置</router-link>
                 <div class="dropdown-divider"></div>
-                <a v-on:click="handlerLogout" class="dropdown-item" href="#">Sign out</a>
+                <a v-on:click="handlerLogout" class="dropdown-item" href="#">退出登录</a>
               </div>
             </li>
           </ul>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Public profile</h1>
+    <h1>资料展示</h1>
     <form @submit.prevent="onSubmit">
       <div class="form-group">
         <label for="name">真实姓名:</label>
@@ -14,7 +14,7 @@
         <label for="about_me">个性签名:</label>
         <textarea v-model="profileForm.about_me" class="form-control" id="about_me" rows="5" placeholder=""></textarea>
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary">提交</button>
     </form>
   </div>
 </template>

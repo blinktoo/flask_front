@@ -78,7 +78,7 @@
                     return false
                 }
                 // 注册不需要Basic Auth
-                const path = '/users'
+                const path = '/api/users'
                 const payload = {
                     username: this.registerForm.username,
                     email: this.registerForm.email,
@@ -87,7 +87,7 @@
                 this.$axios.post(path, payload)
                     .then((response) => {
                         // handle success
-                        this.$toasted.success('Congratulations, you are now a registered user !', { icon: 'fingerprint' })
+                        this.$toasted.success('恭喜你注册完成!', { icon: 'fingerprint' })
                         this.$router.push('/login')
                     })
                     .catch((error) => {

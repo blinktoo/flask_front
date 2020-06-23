@@ -75,12 +75,13 @@
                         'password': this.loginForm.password
                     }
                 }).then((response) => {
-                    // handle success
+                    // 成功了 保存token
                     window.localStorage.setItem('madblog-token', response.data.token)
                     store.loginAction()
 
                     this.$toasted.success(`Welcome ${this.sharedState.user_name}!`, { icon: 'fingerprint' })
 
+                    // 在index.js文件中，有一个beforeEach的方法，在请求之前会存入来时的路由，点redirect进去可以看
                     if (typeof this.$route.query.redirect == 'undefined') {
                         this.$router.push('/')
                     } else {

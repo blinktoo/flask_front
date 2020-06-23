@@ -9,13 +9,13 @@
 
     <!-- Member since -->
     <h4 v-if="user.member_since" class="h6 g-font-weight-300 g-mb-10">
-      <i class="icon-badge g-pos-rel g-top-1 g-color-gray-dark-v5 g-mr-5"></i> Member since : {{ $moment(user.member_since).format('LLL') }}
+      <i class="icon-badge g-pos-rel g-top-1 g-color-gray-dark-v5 g-mr-5"></i> 注册始于 : {{ $moment(user.member_since).format('LLL') }}
     </h4>
     <!-- End Member since -->
 
     <!-- Last seen -->
     <h4 v-if="user.last_seen" class="h6 g-font-weight-300 g-mb-10">
-      <i class="icon-eye g-pos-rel g-top-1 g-color-gray-dark-v5 g-mr-5"></i> Last seen : {{ $moment(user.last_seen).fromNow() }}
+      <i class="icon-eye g-pos-rel g-top-1 g-color-gray-dark-v5 g-mr-5"></i> 最近登录 : {{ $moment(user.last_seen).fromNow() }}
     </h4>
     <!-- End Last seen -->
 

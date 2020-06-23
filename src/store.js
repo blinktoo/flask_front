@@ -1,5 +1,6 @@
 //需要跳转前后的两个组件共同维护一个状态 is_new
-//当用户登录前导航栏上显示 Login，用户登录后显示 Logout，也需要一个共同的状态 is_authenticated
+//is_authenticated: 默认没有token的情况下是false 登录之后调用了loginAction() 改变了状态为True
+//
 export default {
   debug: true,
   state: {
@@ -15,9 +16,13 @@ export default {
   loginAction () {
     if (this.debug) { console.log('loginAction triggered') }
     this.state.is_authenticated = true
+    // 解码 后端返回的token中包含很多信息
     const payload = JSON.parse(atob(window.localStorage.getItem('madblog-token').split('.')[1]))
+    // 保存用户id
     this.state.user_id = payload.user_id
+    // 保存用户名
     this.state.user_name = payload.user_name
+    //来源url
     this.state.user_avatar = atob(payload.user_avatar)
   },
   logoutAction () {

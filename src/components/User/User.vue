@@ -13,19 +13,19 @@
 
             <!-- Actions -->
             <router-link v-if="$route.params.id == sharedState.user_id" v-bind:to="{ name: 'SettingProfile' }" class="btn btn-block u-btn-outline-primary g-rounded-50 g-py-12 g-mb-10">
-              <i class="icon-settings g-pos-rel g-top-1 g-mr-5"></i> Settings
+              <i class="icon-settings g-pos-rel g-top-1 g-mr-5"></i> 设置
             </router-link>
 
             <button v-if="!user.is_following && $route.params.id != sharedState.user_id" v-on:click="onFollowUser($route.params.id)" class="btn btn-block u-btn-outline-primary g-rounded-50 g-py-12 g-mb-10">
-              <i class="icon-user-follow g-pos-rel g-top-1 g-mr-5"></i> Follow
+              <i class="icon-user-follow g-pos-rel g-top-1 g-mr-5"></i> 关注
             </button>
 
             <button v-if="user.is_following && $route.params.id != sharedState.user_id" v-on:click="onUnfollowUser($route.params.id)" class="btn btn-block u-btn-outline-red g-rounded-50 g-py-12 g-mb-10">
-              <i class="icon-user-unfollow g-pos-rel g-top-1 g-mr-5"></i> Unfollow
+              <i class="icon-user-unfollow g-pos-rel g-top-1 g-mr-5"></i> 取消关注
             </button>
 
             <button v-if="$route.params.id == sharedState.user_id" v-on:click="onDeleteUser($route.params.id)" class="btn btn-block u-btn-outline-red g-rounded-50 g-py-12 g-mb-10">
-              <i class="icon-ban g-pos-rel g-top-1 g-mr-5"></i> Delete Your Account
+              <i class="icon-ban g-pos-rel g-top-1 g-mr-5"></i> 删除账号
             </button>
             <!-- End Actions -->
 
@@ -36,19 +36,19 @@
             <!-- Tab Nav -->
             <ul class="nav nav-tabs g-mb-20">
               <li class="nav-item">
-                <router-link v-bind:to="{ name: 'UserOverview' }" v-bind:active-class="'active'" class="nav-link" v-bind:class="isUserOverView">Overview <span class="u-label g-font-size-11 g-bg-primary g-rounded-20 g-px-10"><i class="icon-layers g-pos-rel g-top-1 g-mr-8"></i></span></router-link>
+                <router-link v-bind:to="{ name: 'UserOverview' }" v-bind:active-class="'active'" class="nav-link" v-bind:class="isUserOverView">个人资料 <span class="u-label g-font-size-11 g-bg-primary g-rounded-20 g-px-10"><i class="icon-layers g-pos-rel g-top-1 g-mr-8"></i></span></router-link>
               </li>
               <li class="nav-item">
-                <router-link v-bind:to="{ name: 'UserFollowers' }" v-bind:active-class="'active'" class="nav-link">Followers <span class="u-label g-font-size-11 g-bg-pink g-rounded-20 g-px-10">{{ user.followers_count }}</span></router-link>
+                <router-link v-bind:to="{ name: 'UserFollowers' }" v-bind:active-class="'active'" class="nav-link"> 粉丝 <span class="u-label g-font-size-11 g-bg-pink g-rounded-20 g-px-10">{{ user.followers_count }}</span></router-link>
               </li>
               <li class="nav-item">
-                <router-link v-bind:to="{ name: 'UserFollowing' }" v-bind:active-class="'active'" class="nav-link">Following <span class="u-label g-font-size-11 g-bg-aqua g-rounded-20 g-px-10">{{ user.followeds_count }}</span></router-link>
+                <router-link v-bind:to="{ name: 'UserFollowing' }" v-bind:active-class="'active'" class="nav-link">关注的人 <span class="u-label g-font-size-11 g-bg-aqua g-rounded-20 g-px-10">{{ user.followeds_count }}</span></router-link>
               </li>
               <li class="nav-item">
-                <router-link v-bind:to="{ name: 'UserPostsList' }" v-bind:active-class="'active'" class="nav-link">Posts <span class="u-label g-font-size-11 g-bg-purple g-rounded-20 g-px-10">{{ user.posts_count }}</span></router-link>
+                <router-link v-bind:to="{ name: 'UserPostsList' }" v-bind:active-class="'active'" class="nav-link">文章 <span class="u-label g-font-size-11 g-bg-purple g-rounded-20 g-px-10">{{ user.posts_count }}</span></router-link>
               </li>
               <li class="nav-item">
-                <router-link v-bind:to="{ name: 'UserFollowedsPostsList' }" v-bind:active-class="'active'" class="nav-link">FollowingPosts <span class="u-label g-font-size-11 g-bg-blue g-rounded-20 g-px-10">{{ user.followed_posts_count }}</span></router-link>
+                <router-link v-bind:to="{ name: 'UserFollowedsPostsList' }" v-bind:active-class="'active'" class="nav-link">跟帖 <span class="u-label g-font-size-11 g-bg-blue g-rounded-20 g-px-10">{{ user.followed_posts_count }}</span></router-link>
               </li>
             </ul>
 
@@ -67,7 +67,7 @@
         <!-- Panel Header -->
         <div class="card-header d-flex align-items-center justify-content-between g-bg-gray-light-v5 border-0 g-mb-15">
           <h3 class="h6 mb-0">
-            <i class="icon-fire g-pos-rel g-top-1 g-mr-5"></i> Publish New Post
+            <i class="icon-fire g-pos-rel g-top-1 g-mr-5"></i> 发布新文章
           </h3>
           <div class="dropdown g-mb-10 g-mb-0--md">
             <span class="d-block g-mr-minus-5 g-pa-5">
@@ -170,15 +170,15 @@
             },
             onDeleteUser (id) {
                 this.$swal({
-                    title: "Are you sure ?",
-                    text: "Please provide your password.",
+                    title: "请确认删除操作 ?",
+                    text: "请输入您的登录密码.",
                     input: 'password',
                     type: "warning",
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
                     inputValidator: (value) => {
-                        return !value && 'Please provide a valid password.'
+                        return !value && '请提供有效的密码'
                     }
                 }).then((result) => {
                     if (result.value) {
@@ -195,7 +195,7 @@
                             this.$axios.delete(path)
                                 .then((response) => {
                                     // handle success
-                                    this.$swal('Deleted', 'You are anonymous now, Goodby!', 'success')
+                                    this.$swal('成功', '你号没了', 'success')
                                     store.logoutAction()
                                     this.user = ''
                                     this.$router.push('/')
@@ -207,11 +207,11 @@
                         })
                             .catch((error) => {
                                 // handle error
-                                this.$toasted.error('Invalid password, you cannot delete this account.', { icon: 'fingerprint' })
-                                console.error('Invalid password, you cannot delete this account.')
+                                this.$toasted.error('密码错误，你不能删除这个账号', { icon: 'fingerprint' })
+                                console.error('密码错误，你不能删除这个账号')
                             })
                     } else {
-                        this.$swal('Cancelled', 'Your account is safe :)', 'error')
+                        this.$swal('取消', '你号还在', 'error')
                     }
                 })
             },
@@ -220,14 +220,14 @@
 
                 if (!this.postForm.title) {
                     this.postForm.errors++
-                    this.postForm.titleError = 'Title is required.'
+                    this.postForm.titleError = '标题重复'
                 } else {
                     this.postForm.titleError = null
                 }
 
                 if (!this.postForm.body) {
                     this.postForm.errors++
-                    this.postForm.bodyError = 'Body is required.'
+                    this.postForm.bodyError = '内容重复'
                     // 给 bootstrap-markdown 编辑器内容添加警示样式，而不是添加到 #post_body 上
                     $('.md-editor').closest('.form-group').addClass('u-has-error-v1')  // Bootstrap 4
                 } else {
@@ -249,7 +249,7 @@
                 this.$axios.post(path, payload)
                     .then((response) => {
                         // handle success
-                        this.$toasted.success('Successed add a new post.', { icon: 'fingerprint' })
+                        this.$toasted.success('发布成功！', { icon: 'fingerprint' })
                         this.postForm.title = '',
                             this.postForm.summary = '',
                             this.postForm.body = ''

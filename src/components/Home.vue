@@ -12,7 +12,7 @@
             </button>
           </div>
           <div class="modal-body">
-
+            <!-- 编辑功能 -->
             <form @submit.prevent="onSubmitUpdate" @reset.prevent="onResetUpdate">
               <div class="form-group" v-bind:class="{'u-has-error-v1': editForm.titleError}">
                 <input type="text" v-model="editForm.title" class="form-control" id="editform_title" placeholder="标题">
@@ -25,15 +25,15 @@
                 <textarea v-model="editForm.body" class="form-control" id="editform_body" rows="5" placeholder=" 内容"></textarea>
                 <small class="form-control-feedback" v-show="editForm.bodyError">{{ editForm.bodyError }}</small>
               </div>
-              <button type="reset" class="btn btn-secondary">Cancel</button>
-              <button type="submit" class="btn btn-primary">Update</button>
+              <button type="reset" class="btn btn-secondary">取消</button>
+              <button type="submit" class="btn btn-primary">更新</button>
             </form>
 
           </div>
         </div>
       </div>
     </div>
-
+    <!-- 写博客区域 -->
     <form v-if="sharedState.is_authenticated" @submit.prevent="onSubmitAdd" class="g-mb-40">
       <div class="form-group" v-bind:class="{'u-has-error-v1': postForm.titleError}">
         <input type="text" v-model="postForm.title" class="form-control" id="post_title" placeholder="标题">
@@ -46,14 +46,14 @@
         <textarea v-model="postForm.body" class="form-control" id="post_body" rows="5" placeholder=" 内容"></textarea>
         <small class="form-control-feedback" v-show="postForm.bodyError">{{ postForm.bodyError }}</small>
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary">提交</button>
     </form>
 
     <div class="card border-0 g-mb-15">
       <!-- Panel Header -->
       <div class="card-header d-flex align-items-center justify-content-between g-bg-gray-light-v5 border-0 g-mb-15">
         <h3 class="h6 mb-0">
-          <i class="icon-bubbles g-pos-rel g-top-1 g-mr-5"></i> All Posts <small v-if="posts">(共 {{ posts._meta.total_items }} 篇, {{ posts._meta.total_pages }} 页)</small>
+          <i class="icon-bubbles g-pos-rel g-top-1 g-mr-5"></i> 所有文章 <small v-if="posts">(共 {{ posts._meta.total_items }} 篇, {{ posts._meta.total_pages }} 页)</small>
         </h3>
 
         <div class="dropdown g-mb-10 g-mb-0--md">
@@ -286,14 +286,14 @@
             },
             onDeletePost (post) {
                 this.$swal({
-                    title: "Are you sure?",
+                    title: "请确定删除操作:",
                     text: "该操作将彻底删除 [ " + post.title + " ], 请慎重",
                     type: "warning",
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!',
-                    cancelButtonText: 'No, cancel!'
+                    confirmButtonText: '是,删除它!',
+                    cancelButtonText: '不,我再想想!'
                 }).then((result) => {
                     if(result.value) {
                         const path = `/api/posts/${post.id}`
@@ -309,7 +309,7 @@
                                 console.log(error.response.data)
                             })
                     } else {
-                        this.$swal('Cancelled', 'The post is safe :)', 'error')
+                        this.$swal('取消', '删除已取消', 'error')
                     }
                 })
             }
