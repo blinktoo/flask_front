@@ -1,46 +1,42 @@
 <template>
-  <div class="container">
-    <h1>编辑简介</h1>
-    <div class="row">
-      <div class="col-md-4">
-        <form @submit.prevent="onSubmit">
-          <div class="form-group">
-            <label for="name">真实姓名:</label>
-            <input type="text" v-model="profileForm.name" class="form-control" id="name" placeholder="">
-          </div>
-          <div class="form-group">
-            <label for="location">地址:</label>
-            <input type="text" v-model="profileForm.location" class="form-control" id="location" placeholder="">
-          </div>
-          <div class="form-group">
-            <label for="about_me">关于我的:</label>
-            <textarea v-model="profileForm.about_me" class="form-control" id="about_me" rows="5" placeholder=""></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+  <div>
+    <h1>Public profile</h1>
+    <form @submit.prevent="onSubmit">
+      <div class="form-group">
+        <label for="name">真实姓名:</label>
+        <input type="text" v-model="profileForm.name" class="form-control" id="name" placeholder="">
       </div>
-    </div>
+      <div class="form-group">
+        <label for="location">地址:</label>
+        <input type="text" v-model="profileForm.location" class="form-control" id="location" placeholder="">
+      </div>
+      <div class="form-group">
+        <label for="about_me">个性签名:</label>
+        <textarea v-model="profileForm.about_me" class="form-control" id="about_me" rows="5" placeholder=""></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
   </div>
 </template>
 
 <script>
-    import store from '../store.js'
+    import store from '../../../store'
+
     export default {
-        name: 'EditProfile',  //this is the name of the component
+        name: 'Profile',  //this is the name of the component
         data () {
             return {
                 sharedState: store.state,
                 profileForm: {
                     name: '',
                     location: '',
-                    about_me: '',
-                    submitted: false  // 是否点击了 submit 按钮
+                    about_me: ''
                 }
             }
         },
         methods: {
             getUser (id) {
-                const path = `/users/${id}`
+                const path = `/api/users/${id}`
                 this.$axios.get(path)
                     .then((response) => {
                         this.profileForm.name = response.data.name
@@ -54,7 +50,7 @@
             },
             onSubmit (e) {
                 const user_id = this.sharedState.user_id
-                const path = `/users/${user_id}`
+                const path = `/api/users/${user_id}`
                 const payload = {
                     name: this.profileForm.name,
                     location: this.profileForm.location,
@@ -64,10 +60,7 @@
                     .then((response) => {
                         // handle success
                         this.$toasted.success('Successed modify your profile.', { icon: 'fingerprint' })
-                        this.$router.push({
-                            name: 'Profile',
-                            params: { id: user_id }
-                        })
+                        this.$router.push({ path: `/user/${user_id}/overview` })
                     })
                     .catch((error) => {
                         // handle error
