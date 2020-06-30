@@ -12,6 +12,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap'
 // 字体图标
 import './assets/icon-line/css/simple-line-icons.css'
+import './assets/icon-line-pro/style.css'
 import './assets/icon-material/material-icons.css'
 // bootstrap-markdown 编辑器需要的样式
 import './assets/bootstrap-markdown/css/bootstrap-markdown.min.css'
@@ -23,10 +24,10 @@ import './assets/markdown-styles/github-markdown.css'
 import './assets/core.css'
 import './assets/custom.css'
 // register the vue-toasted plugin on vue
-import VueToasted  from 'vue-toasted'
 import $ from 'jquery'
 
-
+// register the vue-toasted plugin on vue
+import VueToasted  from 'vue-toasted'
 Vue.use(VueToasted, {
   // 主题样式 primary/outline/bubble
   theme: 'bubble',
